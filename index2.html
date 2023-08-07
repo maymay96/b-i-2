@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Color Picker</title>
+    <style>
+        body {
+            background: cornflowerblue;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-family: Arial, sans-serif;
+            color: blanchedalmond;
+        }
+
+        #color {
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: plum;
+        }
+        
+        #copyButton {
+            background: none;
+            border: none;
+            color: cornsilk;
+            cursor: pointer;
+        }
+        
+        #colorGradient {
+            width: 250px;
+            height: 250px;
+            background-image: linear-gradient(to right, rgb(255, 0, 255), rgb(0, 128, 255));
+        }
+    </style>
+</head>
+<body>
+    <h1>Color Picker</h1>
+
+    <div id="color"></div>
+    
+    <button onclick="pickRandomColor()">Pick Random Color</button>
+    
+    <br><br>
+    
+    <label for="copyInput">Mã màu Hex:</label>
+    <input type="text" id="copyInput" readonly>
+    <button onclick="copyColor()" id="copyButton">Copy</button>
+    
+    <br><br>
+    
+    <div id="colorGradient"></div>
+
+    <script>
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function pickRandomColor() {
+            var randomColor = getRandomColor();
+            document.body.style.backgroundColor = randomColor;
+            document.getElementById("color").textContent = randomColor;
+            document.getElementById("color").style.color = randomColor;
+            document.getElementById("colorGradient").style.backgroundImage = "linear-gradient(to right, " + randomColor + ", yellow)";
+            document.getElementById("copyInput").value = randomColor;
+        }
+
+        function copyColor() {
+            var copyText = document.getElementById("copyInput");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            alert("Đã copy mã rồi nhaa!: " + copyText.value);
+        }
+    </script>
+</body>
+</html>
